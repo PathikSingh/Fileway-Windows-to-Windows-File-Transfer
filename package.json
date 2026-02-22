@@ -1,0 +1,36 @@
+{
+  "name": "fileway",
+  "version": "1.0.0",
+  "description": "LAN-only file sharing desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "pack": "electron-builder --dir"
+  },
+  "author": "Fileway",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "uuid": "^9.0.0"
+  },
+  "build": {
+    "appId": "com.fileway.desktop",
+    "productName": "Fileway",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

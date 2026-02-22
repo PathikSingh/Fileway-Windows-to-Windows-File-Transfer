@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fileway - Home</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <!-- Title Bar -->
+    <div class="titlebar">
+        <div class="titlebar-title">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Fileway
+        </div>
+        <div class="titlebar-buttons">
+            <button class="titlebar-btn minimize" onclick="window.fileway.minimizeWindow()">
+                <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+            </button>
+            <button class="titlebar-btn close" onclick="window.fileway.closeWindow()">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <div class="header-user">
+                <!-- Settings Gear -->
+                <button class="btn-ghost" onclick="window.fileway.navigateTo('settings.html')" title="Settings">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="var(--text-muted)"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z"/></svg>
+                </button>
+
+                <!-- User Dropdown -->
+                <div class="dropdown-wrapper">
+                    <div class="dropdown-trigger" onclick="toggleDropdown()">
+                        <div class="avatar" id="userAvatar">JD</div>
+                    </div>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="avatar" id="dropdownAvatar">JD</div>
+                            <div class="dropdown-header-info">
+                                <h4 id="dropdownName">John Doe</h4>
+                                <p id="dropdownEmail">john@fileway.local</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-section">
+                            <div class="dropdown-label">Feedback & Help</div>
+                            <button class="dropdown-item" onclick="openEmail()">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Email
+                            </button>
+                            <button class="dropdown-item" onclick="openDiscord()">
+                                <svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/></svg>
+                                Discord
+                            </button>
+                            <button class="dropdown-item" onclick="openTwitter()">
+                                <svg viewBox="0 0 24 24"><path d="M22.46 6c-.85.38-1.78.64-2.75.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.58-2.11-9.96-5.02-.42.72-.66 1.56-.66 2.46 0 1.68.85 3.16 2.14 4.02-.79-.02-1.53-.24-2.18-.6v.06c0 2.35 1.67 4.31 3.88 4.76-.4.1-.83.16-1.27.16-.31 0-.62-.03-.92-.08.63 1.96 2.45 3.39 4.61 3.43-1.69 1.32-3.83 2.1-6.15 2.1-.4 0-.8-.02-1.19-.07 2.19 1.4 4.78 2.22 7.57 2.22 9.07 0 14.02-7.52 14.02-14.02 0-.21 0-.42-.01-.63.96-.69 1.79-1.56 2.45-2.55z"/></svg>
+                                Twitter
+                            </button>
+                        </div>
+                        <div class="dropdown-section">
+                            <div class="dropdown-label">Support Fileway</div>
+                            <button class="dropdown-item" onclick="openDonate()">
+                                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                Donate
+                            </button>
+                            <button class="dropdown-item" onclick="openUpgrade()">
+                                <svg viewBox="0 0 24 24"><path d="M4 6h18V4H4c-1.1 0-2 .9-2 2v11H0v3h14v-3H4V6zm19 2h-6c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-1 9h-4v-7h4v7z"/></svg>
+                                Upgrade
+                            </button>
+                        </div>
+                        <div class="dropdown-section">
+                            <button class="dropdown-item" onclick="openSettings()">
+                                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z"/></svg>
+                                Settings
+                                <span class="version">v1.0.0</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <h3 id="userName">John Doe</h3>
+                    <p id="userEmail">john@fileway.local</p>
+                </div>
+            </div>
+            <div class="status-badge online">
+                <span style="width: 6px; height: 6px; background: var(--success); border-radius: 50%;"></span>
+                Online
+            </div>
+        </div>
+
+        <!-- Welcome Message -->
+        <div class="section fade-in">
+            <div class="card" style="text-align: center; padding: 32px;">
+                <h2>Welcome to Fileway</h2>
+                <p class="text-muted mt-8">Send files to any device on your network instantly</p>
+            </div>
+        </div>
+
+        <!-- My Devices Section -->
+        <div class="section fade-in">
+            <div class="section-header">
+                <span class="section-title">Nearby Devices</span>
+                <span class="text-muted" id="deviceCount">0 found</span>
+            </div>
+
+            <div class="device-list" id="deviceList">
+                <!-- Devices will be populated here -->
+                <div class="empty-state" id="emptyState">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/>
+                    </svg>
+                    <p>No devices found on this network</p>
+                    <p class="text-muted">Make sure other Fileway apps are running</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spacer -->
+        <div style="flex: 1;"></div>
+
+        <!-- Send to Others -->
+        <div class="section fade-in">
+            <button class="btn btn-secondary" id="sendToOthersBtn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                Send to Other People
+            </button>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="window.fileway.openReceiveFolder()">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                    </svg>
+                    Open Downloads
+                </button>
+                <button class="btn btn-danger" onclick="handleLogout()">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send to Email Dialog (Hidden by default) -->
+    <div id="emailDialog" class="hidden" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px);">
+        <div class="card" style="width: 340px;">
+            <h3>Send to Someone</h3>
+            <p class="subtitle">Enter their email to find them on the network</p>
+            <form id="emailSearchForm">
+                <div class="form-group">
+                    <input type="email" id="searchEmail" class="form-input" placeholder="friend@fileway.local" required>
+                </div>
+                <p class="text-muted mb-16" id="searchError" style="color: var(--error); display: none;">
+                    No device found with this email on the network
+                </p>
+                <div class="btn-row">
+                    <button type="button" class="btn btn-secondary" onclick="closeEmailDialog()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Find</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let devices = [];
+        let profile = null;
+
+        // Initialize
+        async function init() {
+            profile = await window.fileway.getProfile();
+            
+            // Update UI with user info
+            const fullName = `${profile.firstName} ${profile.lastName}`;
+            const initials = (profile.firstName[0] + profile.lastName[0]).toUpperCase();
+            
+            document.getElementById('userName').textContent = fullName;
+            document.getElementById('userEmail').textContent = profile.email;
+            document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('dropdownName').textContent = fullName;
+            document.getElementById('dropdownEmail').textContent = profile.email;
+            document.getElementById('dropdownAvatar').textContent = initials;
+
+            // Get initial devices
+            devices = await window.fileway.getDevices();
+            renderDevices();
+
+            // Listen for device updates
+            window.fileway.onDevicesUpdated((updatedDevices) => {
+                devices = updatedDevices;
+                renderDevices();
+            });
+
+            // Listen for transfer requests
+            window.fileway.onTransferRequest((data) => {
+                sessionStorage.setItem('pendingTransfer', JSON.stringify(data));
+                window.fileway.navigateTo('receive.html');
+            });
+        }
+
+        // Dropdown toggle
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('userDropdown');
+            const trigger = document.querySelector('.dropdown-trigger');
+            if (!trigger.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Dropdown actions
+        function openSettings() {
+            window.fileway.navigateTo('settings.html');
+        }
+
+        function openEmail() {
+            window.open('mailto:hello@fileway.app');
+        }
+
+        function openDiscord() {
+            window.open('https://discord.gg/fileway');
+        }
+
+        function openTwitter() {
+            window.open('https://twitter.com/fileway_app');
+        }
+
+        function openDonate() {
+            window.open('https://fileway.app/donate');
+        }
+
+        function openUpgrade() {
+            window.open('https://fileway.app/upgrade');
+        }
+
+        function renderDevices() {
+            const list = document.getElementById('deviceList');
+            const emptyState = document.getElementById('emptyState');
+            const countEl = document.getElementById('deviceCount');
+
+            countEl.textContent = `${devices.length} found`;
+
+            if (devices.length === 0) {
+                emptyState.style.display = 'block';
+                // Clear any device cards
+                const cards = list.querySelectorAll('.device-card');
+                cards.forEach(card => card.remove());
+                return;
+            }
+
+            emptyState.style.display = 'none';
+
+            // Build device HTML
+            list.innerHTML = devices.map(device => `
+                <div class="device-card" onclick="selectDevice('${device.deviceId}')">
+                    <div class="device-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/>
+                        </svg>
+                    </div>
+                    <div class="device-info">
+                        <h4>${escapeHtml(device.deviceName)}</h4>
+                        <p>${escapeHtml(device.email)}</p>
+                    </div>
+                    <div class="device-status"></div>
+                </div>
+            `).join('');
+        }
+
+        function selectDevice(deviceId) {
+            sessionStorage.setItem('selectedDeviceId', deviceId);
+            window.fileway.navigateTo('send.html');
+        }
+
+        // Send to others dialog
+        document.getElementById('sendToOthersBtn').addEventListener('click', () => {
+            document.getElementById('emailDialog').classList.remove('hidden');
+            document.getElementById('emailDialog').style.display = 'flex';
+            document.getElementById('searchEmail').focus();
+        });
+
+        function closeEmailDialog() {
+            document.getElementById('emailDialog').classList.add('hidden');
+            document.getElementById('emailDialog').style.display = 'none';
+            document.getElementById('searchEmail').value = '';
+            document.getElementById('searchError').style.display = 'none';
+        }
+
+        document.getElementById('emailSearchForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('searchEmail').value.trim().toLowerCase();
+            
+            const device = await window.fileway.findDeviceByEmail(email);
+            
+            if (device) {
+                closeEmailDialog();
+                sessionStorage.setItem('selectedDeviceId', device.deviceId);
+                window.fileway.navigateTo('send.html');
+            } else {
+                document.getElementById('searchError').style.display = 'block';
+            }
+        });
+
+        async function handleLogout() {
+            await window.fileway.logout();
+            window.fileway.navigateTo('login.html');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Close dialog on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEmailDialog();
+                document.getElementById('userDropdown').classList.remove('show');
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fileway - Login</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+    <style>
+      /* Page-specific overrides for Premium "Apple-like" feel */
+      body {
+        background: #050505; /* Deep black */
+        overflow: hidden;
+      }
+
+      /* Ambient Background Glow */
+      .ambient-glow {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.5;
+        animation: float 10s ease-in-out infinite;
+      }
+
+      .glow-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+        top: -100px;
+        left: -100px;
+        animation-delay: 0s;
+      }
+
+      .glow-2 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, transparent 70%);
+        bottom: -50px;
+        right: -50px;
+        animation-delay: -5s;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(30px, 20px); }
+      }
+
+      /* Glass Card overrides */
+      .container {
+        padding: 0; /* Remove default padding to allow full centralization */
+      }
+
+      .auth-card {
+        background: rgba(20, 20, 20, 0.6) !important;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        width: 100%;
+        max-width: 400px; /* Slightly wider */
+        padding: 40px !important;
+      }
+
+      /* Typography adjustments */
+      h1 {
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+        line-height: 1.5;
+        opacity: 0.7;
+        margin-bottom: 32px;
+      }
+
+      /* Modern Input */
+      .form-group {
+        margin-bottom: 24px;
+      }
+      
+      .form-label {
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-left: 4px;
+        opacity: 0.8;
+      }
+
+      .form-input {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+        font-size: 15px !important;
+        transition: all 0.2s ease;
+      }
+
+      .form-input:focus {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(139, 92, 246, 0.5) !important;
+        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1) !important;
+      }
+
+      .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Premium Button */
+      .btn-primary {
+        height: 52px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 14px !important;
+        background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%) !important;
+        box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3) !important;
+        letter-spacing: -0.01em;
+        margin-top: 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), transparent);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+
+      .btn-primary:hover::after {
+        opacity: 1;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(109, 40, 217, 0.4) !important;
+      }
+      
+      /* Logo enhancement */
+      .logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 32px !important;
+        border-radius: 20px !important;
+        background: linear-gradient(135deg, #2e1065, #4c1d95) !important; /* Deep purple backing */
+        box-shadow: 0 8px 24px rgba(76, 29, 149, 0.3);
+        position: relative;
+      }
+      
+      .logo::before {
+        content: '';
+        position: absolute;
+        inset: 1px;
+        border-radius: 19px;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+        pointer-events: none;
+      }
+
+      .logo svg {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- Background Effects -->
+    <div class="ambient-glow">
+      <div class="glow-orb glow-1"></div>
+      <div class="glow-orb glow-2"></div>
+    </div>
+
+    <!-- Title Bar -->
+    <div class="titlebar" style="background: transparent; border-bottom: none;">
+      <div class="titlebar-title">
+        <!-- Optional: fileway logo hidden here for clean look or kept -->
+      </div>
+      <div class="titlebar-buttons">
+        <button
+          class="titlebar-btn minimize"
+          onclick="window.fileway.minimizeWindow()"
+        >
+          <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z" /></svg>
+        </button>
+        <button
+          class="titlebar-btn close"
+          onclick="window.fileway.closeWindow()"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container center">
+      <div class="card auth-card fade-in">
+        <!-- Logo -->
+        <div class="logo" style="margin: 0 auto 24px">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+          </svg>
+        </div>
+
+        <h1 class="text-center">Welcome to Fileway</h1>
+        <p class="subtitle text-center">
+          Share files instantly with devices on your Wi-Fi network.
+        </p>
+
+        <!-- Form -->
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              class="form-input"
+              placeholder="name@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="continueBtn">
+            Continue 
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-left: 4px;">
+              <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+            </svg>
+          </button>
+        </form>
+
+        <p class="text-muted text-center mt-24" style="opacity: 0.5; font-size: 12px; margin-top: 32px;">
+          For testing, use any email ending with <span style="color: #A78BFA">@fileway.local</span>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      const emailInput = document.getElementById("email");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim().toLowerCase();
+
+        if (!email) {
+          return;
+        }
+
+        // Store email temporarily and go to OTP page
+        sessionStorage.setItem("pendingEmail", email);
+        window.fileway.navigateTo("otp.html");
+      });
+    </script>
+  </body>
+</html>

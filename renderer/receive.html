@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fileway - Receive File</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <!-- Title Bar -->
+    <div class="titlebar">
+        <div class="titlebar-title">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+            Fileway
+        </div>
+        <div class="titlebar-buttons">
+            <button class="titlebar-btn minimize" onclick="window.fileway.minimizeWindow()">
+                <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+            </button>
+            <button class="titlebar-btn close" onclick="window.fileway.closeWindow()">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Step 1: Accept/Reject -->
+        <div id="step1" class="fade-in">
+            <h2>Incoming File</h2>
+            <p class="subtitle">Someone wants to send you a file</p>
+
+            <!-- Sender Info -->
+            <div class="sender-info">
+                <div class="sender-avatar" id="senderAvatar">??</div>
+                <div class="sender-details">
+                    <h4 id="senderEmail">sender@fileway.local</h4>
+                    <p>wants to send you a file</p>
+                </div>
+            </div>
+
+            <!-- File Info -->
+            <div class="file-info">
+                <div class="file-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                </div>
+                <div class="file-details">
+                    <h4 id="fileName">file.pdf</h4>
+                    <p id="fileSize">2.5 MB</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="btn-row mt-24">
+                <button class="btn btn-danger" onclick="rejectTransfer()">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                    Reject
+                </button>
+                <button class="btn btn-success" onclick="acceptTransfer()">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    Accept
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Receiving -->
+        <div id="step2" class="hidden fade-in">
+            <h2>Receiving File</h2>
+            <p class="subtitle">File is being transferred...</p>
+
+            <div class="file-info">
+                <div class="file-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                </div>
+                <div class="file-details">
+                    <h4 id="receivingFileName">file.pdf</h4>
+                    <p class="text-accent">Downloading...</p>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="progressPercent">0%</span>
+                    <span id="progressBytes">0 / 0 MB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Complete -->
+        <div id="step3" class="hidden fade-in">
+            <div class="card text-center" style="padding: 40px;">
+                <div style="width: 64px; height: 64px; margin: 0 auto 24px; border-radius: 50%; background: var(--success-bg); display: flex; align-items: center; justify-content: center;">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="var(--success)">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <h3>File Received!</h3>
+                <p class="text-muted" id="completedFileName">file.pdf</p>
+            </div>
+
+            <button class="btn btn-primary mt-16" onclick="openFolder()">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                </svg>
+                Open Downloads Folder
+            </button>
+
+            <button class="btn btn-secondary mt-8" onclick="goHome()">
+                Done
+            </button>
+        </div>
+
+        <!-- No Transfer -->
+        <div id="noTransfer" class="hidden fade-in">
+            <div class="card text-center" style="padding: 40px;">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="var(--text-muted)" style="margin-bottom: 16px;">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <h3>No Pending Transfer</h3>
+                <p class="text-muted">There's no incoming file to receive</p>
+            </div>
+
+            <button class="btn btn-primary mt-16" onclick="goHome()">
+                Go Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let pendingTransfer = null;
+
+        function init() {
+            // Get pending transfer from session storage
+            const transferData = sessionStorage.getItem('pendingTransfer');
+            
+            if (!transferData) {
+                showStep('noTransfer');
+                return;
+            }
+
+            pendingTransfer = JSON.parse(transferData);
+            
+            // Display transfer info
+            document.getElementById('senderEmail').textContent = pendingTransfer.senderEmail;
+            document.getElementById('senderAvatar').textContent = 
+                pendingTransfer.senderEmail.substring(0, 2).toUpperCase();
+            document.getElementById('fileName').textContent = pendingTransfer.fileName;
+            document.getElementById('fileSize').textContent = formatBytes(pendingTransfer.fileSize);
+            document.getElementById('receivingFileName').textContent = pendingTransfer.fileName;
+            document.getElementById('completedFileName').textContent = pendingTransfer.fileName;
+
+            // Listen for progress updates
+            window.fileway.onTransferProgress((data) => {
+                if (data.type === 'receiving') {
+                    updateProgress(data.progress, data.bytes, data.total);
+                }
+            });
+
+            // Listen for completion
+            window.fileway.onTransferComplete((data) => {
+                showStep(3);
+            });
+        }
+
+        async function acceptTransfer() {
+            if (!pendingTransfer) return;
+            
+            await window.fileway.acceptTransfer(pendingTransfer.transferId);
+            sessionStorage.removeItem('pendingTransfer');
+            showStep(2);
+        }
+
+        async function rejectTransfer() {
+            if (!pendingTransfer) return;
+            
+            await window.fileway.rejectTransfer(pendingTransfer.transferId);
+            sessionStorage.removeItem('pendingTransfer');
+            goHome();
+        }
+
+        function updateProgress(percent, bytes, total) {
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = percent + '%';
+            document.getElementById('progressBytes').textContent = 
+                formatBytes(bytes) + ' / ' + formatBytes(total);
+        }
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
+        }
+
+        function showStep(step) {
+            ['step1', 'step2', 'step3', 'noTransfer'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(step.toString().startsWith('step') ? step : step).classList.remove('hidden');
+        }
+
+        async function openFolder() {
+            await window.fileway.openReceiveFolder();
+        }
+
+        function goHome() {
+            window.fileway.navigateTo('home.html');
+        }
+
+        init();
+    </script>
+</body>
+</html>
